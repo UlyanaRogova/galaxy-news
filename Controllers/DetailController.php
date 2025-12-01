@@ -1,4 +1,5 @@
 <?php
+
 require_once 'Model/Repository.php';
 
 //use Repository;
@@ -6,7 +7,6 @@ require_once 'Model/Repository.php';
 class DetailController
 {
     private $repository;
-    private $title = 'Галактический вестник';
 
     public function __construct()
     {
@@ -15,8 +15,8 @@ class DetailController
 
     public function index($newsId)
     {
-        $title = $this->title;
         $news = $this->repository->getNews($newsId);
+        $title = $news['title'];
 
         include 'Views/header.php';
         include 'Views/detail.php';

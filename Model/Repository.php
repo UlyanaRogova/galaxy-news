@@ -52,7 +52,9 @@ class Repository
 
         $res = $this->getQuery($query);
 
-        return $this->prepareData($res);
+         $row = mysqli_fetch_assoc($res);
+
+        return $row;
     }
 
     public function getPageId()

@@ -1,23 +1,39 @@
 <?php
-require_once 'resources/Repository.php';
-class Pagination
+
+require_once 'Model/Repository.php';
+
+class MainController
 {
+    private $repository;
+    private $title = 'Галактический вестник';
     private $count_news = 4;
     private $items_on_page = 1;
-    private $repository;
 
     public function __construct()
     {
         $this->repository = new Repository();
     }
 
-    public function getPage()
+    public function index()
+    {
+        $title = $this->title;
+        $news = $this->repository->fetchNews();
+        $bannerNews = $this->repository->fetchBanner();
+
+        $pages = $this->getPages();
+
+        include 'Views/header.php';
+        include 'Views/main.php';
+        include 'Views/footer.php';
+    }
+
+    public function getPages()
     {
         $count = $this->repository->fetchCountPage();
         
         $id_page = $this->repository->getPageId(); // уточнить про this
 
-        $id_page = (int) $id_page;
+        //$id_page = (int) $id_page;
         
         $count_pages = ceil($count / $this->count_news);
         
@@ -38,4 +54,5 @@ class Pagination
         return ['id_page' => $id_page, 'count_pages' => $count_pages, 'first_page' => $first_page, 'last_page' => $last_page];
     }
 }
+
 ?>

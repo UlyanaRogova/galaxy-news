@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="img">
-			<img src="<?= '/pics/' . $news['image'] ?>" alt="content picture">
+			<img src="<?= '/resources/pics/' . $news['image'] ?>" alt="content picture">
 		</div>
 	</div>
 
