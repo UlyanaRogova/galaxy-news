@@ -1,13 +1,13 @@
 <?php
 
 
-class Repository1
+class Repository
 {
     private $link;
 
     public function __construct()
     {
-        require 'connect.php';
+        require 'Db/Connect.php';
 
         mysqli_query($link, "SET NAMES 'utf8'");
 
@@ -35,12 +35,15 @@ class Repository1
         return $titles;
     }
 
-    public function getTitle($newsId) {
-        $query = "SELECT title FROM news WHERE id = $newsId LIMIT 1";
+    public function getNews($newsId)
+    {
+        $query = "SELECT * FROM news WHERE id = $newsId LIMIT 1";
 
         $res = $this->getQuery($query);
 
-        return $this->prepareData($res);
+        $row = mysqli_fetch_assoc($res);
+
+        return $row;
     }
 
     public function fetchBanner()
@@ -106,7 +109,8 @@ class Repository1
 
     private function prepareData($res)
     {
-        for ($data = []; $row = mysqli_fetch_assoc($res); $data[] = $row);
+        for ($data = []; $row = mysqli_fetch_assoc($res); $data[] = $row)
+            ;
 
         return $data;
     }
