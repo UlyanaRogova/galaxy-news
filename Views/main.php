@@ -1,77 +1,75 @@
-<div class="banner" style="background-image: url( '<?php echo '/resources/pics/' . $bannerNews['image'] ?>' );">
+<div class="banner" style="background-image: url( '<?= '/resources/pics/' . $bannerNews['image'] ?>' );">
 	<div class="main wrapper">
-		<a href="/detail/?id=<?php echo $bannerNews['id'] ?>">
-			<h1> <?php echo $bannerNews['title'] ?> </h1>
+		<a href="/detail/?id=<?= $bannerNews['id'] ?>">
+			<h1> <?= $bannerNews['title'] ?> </h1>
 		</a>
-		<?php echo $bannerNews['announce'] ?>
+		<?= $bannerNews['announce'] ?>
 	</div>
 </div>
+
 <div class="block-news wrapper">
 	<h1>Новости</h1>
 	<div class="news">
-		<?php
-		foreach ($news as $item) {
-			$id = $item['id'];
-			$date_db = date_create($item['date']);
-			$date = date_format($date_db, 'd.m.Y', );
-			$title = $item['title'];
-			$announce = $item['announce'];
-			?>
-
-			<div class="news-subject">
-				<div class="news-time">
-					<p> <?php echo $date ?></p>
-				</div>
-				<div class="news-title">
-					<h2> <?php echo $title ?> </h2>
-				</div>
-				<div class="news-announce">
-					<?php echo $announce ?>
-				</div>
-				<div class="button">
-					<a href="/detail/?id=<?php echo $id; ?>">
+		<?php foreach ($news as $item) {
+			$dateDb = date_create($item['date']);
+			$date = date_format($dateDb, 'd.m.Y', );
+			$item['date'] = $date; ?>
+			<a href="/detail/?id=<?= $item['id']; ?>">
+				<div class="news-subject">
+					<div class="news-time">
+						<p> <?= $item['date'] ?></p>
+					</div>
+					<div class="news-title">
+						<h2> <?= $item['title'] ?> </h2>
+					</div>
+					<div class="news-announce">
+						<?= $item['announce'] ?>
+					</div>
+					<div class="button">
 						ПОДРОБНЕЕ <span class="arrow-link">&#8594</span>
-					</a>
+					</div>
 				</div>
-			</div>
+			</a>
 		<?php } ?>
 	</div>
 </div>
+
 <div class="pagination wrapper">
+
 	<?php
 
-	$id_page = $pages['id_page'];
+	$pageId = $pages['pageId'];
 
-	$first_page = $pages['first_page'];
+	$firstPage = $pages['firstPage'];
 
-	$last_page = $pages['last_page'];
+	$lastPage = $pages['lastPage'];
 
-	$count_pages = $pages['count_pages'];
+	$countPages = $pages['countPages'];
 
-	if ($id_page != 1) {
-		$prev = $id_page - 1; ?>
-		<a href="?page=<?php echo $prev ?>">
+	if ($pageId != 1) {
+		$prev = $pageId - 1; ?>
+		<a href="?page=<?= $prev ?>">
 			<div class="prev-page">&#10132</div>
 		</a>
 	<?php }
 
-	for ($i = $first_page; $i <= $last_page; $i++) {
-		if ($i == $id_page) {
+	for ($i = $firstPage; $i <= $lastPage; $i++) {
+		if ($i == $pageId) {
 			$class = 'active'; ?>
-			<a href="?page=<?php echo $i ?>">
-				<div class="page <?php echo $class ?>"><?php echo $i ?></div>
+			<a href="?page=<?= $i ?>">
+				<div class="page <?= $class ?>"><?= $i ?></div>
 			</a>
 			<?php
 		} else { ?>
-			<a href="?page=<?php echo $i ?>">
-				<div class="page"><?php echo $i ?></div>
+			<a href="?page=<?= $i ?>">
+				<div class="page"><?= $i ?></div>
 			</a>
 		<?php }
 	}
 
-	if ($id_page != $count_pages) {
-		$next = $id_page + 1; ?>
-		<a href="?page=<?php echo $next ?>">
+	if ($pageId != $countPages) {
+		$next = $pageId + 1; ?>
+		<a href="?page=<?= $next ?>">
 			<div class="next-page">&#10132</div>
 		</a>
 	<?php } ?>

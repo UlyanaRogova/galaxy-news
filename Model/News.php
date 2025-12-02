@@ -1,7 +1,5 @@
 <?php
-
-
-class Repository
+class News
 {
     private $link;
 
@@ -14,28 +12,7 @@ class Repository
         $this->link = $link;
     }
 
-    private function fetchAll()
-    {
-        $query = "SELECT * FROM news";
-
-        $res = $this->getQuery($query);
-
-        for ($data = []; $row = mysqli_fetch_assoc($res); $data[] = $row)
-            ;
-
-        return $data;
-    }
-
-    public function getTitles()
-    {
-        $titles = [];
-        foreach ($this->fetchAll() as $news) {
-            $titles[$news['id']] = $news['title'];
-        }
-        return $titles;
-    }
-
-    public function getNews($newsId)
+    public function getAll($newsId)
     {
         $query = "SELECT * FROM news WHERE id = $newsId LIMIT 1";
 
@@ -52,7 +29,7 @@ class Repository
 
         $res = $this->getQuery($query);
 
-         $row = mysqli_fetch_assoc($res);
+        $row = mysqli_fetch_assoc($res);
 
         return $row;
     }
@@ -60,28 +37,30 @@ class Repository
     public function getPageId()
     {
         if (isset($_GET['page']) && !empty($_GET['page'])) {
-            $id_page = (int) $_GET['page'];
-            return $id_page;
+            $pageId = (int) $_GET['page'];
+            return $pageId;
         } else {
-            $id_page = 1;
-            return $id_page;
+            $pageId = 1;
+            return $pageId;
         }
     }
 
     public function fetchNews()
     {
-        $count_news = 4;
-        $id_page = $this->getPageId();
-        $news_on_page = ($id_page - 1) * $count_news;
+        $countNews = 4;
 
-        $query = "SELECT id, date, title, announce FROM news ORDER BY DATE DESC LIMIT $news_on_page, $count_news";
+        $pageId = $this->getPageId();
+
+        $newsOnPage = ($pageId - 1) * $countNews;
+
+        $query = "SELECT id, date, title, announce FROM news ORDER BY DATE DESC LIMIT $newsOnPage, $countNews";
 
         $res = $this->getQuery($query);
 
         return $this->prepareData($res);
     }
 
-    public function fetchCountPage()
+    public function fetchCountPages()
     {
         $query = "SELECT COUNT(*) as count FROM news";
 
@@ -90,16 +69,6 @@ class Repository
         $count = mysqli_fetch_assoc($res)['count'];
 
         return $count;
-    }
-
-    public function getNewsId()
-    {
-        $content = [];
-
-        foreach ($this->fetchAll() as $news) {
-            $content[$news['id']] = $news;
-        }
-        return $content;
     }
 
     private function getQuery($query)

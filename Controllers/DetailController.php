@@ -1,22 +1,23 @@
 <?php
 
-require_once 'Model/Repository.php';
-
-//use Repository;
+require_once 'Model/News.php';
 
 class DetailController
 {
-    private $repository;
+    private $news;
 
     public function __construct()
     {
-        $this->repository = new Repository();
+        $this->news = new News();
     }
 
     public function index($newsId)
     {
-        $news = $this->repository->getNews($newsId);
+        $news = $this->news->getAll($newsId);
         $title = $news['title'];
+        $dateDb = date_create($news['date']);
+		$date = date_format($dateDb, 'd.m.Y', );
+        $news['date'] = $date;
 
         include 'Views/header.php';
         include 'Views/detail.php';

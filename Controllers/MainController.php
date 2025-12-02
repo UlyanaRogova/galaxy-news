@@ -1,24 +1,23 @@
 <?php
-
-require_once 'Model/Repository.php';
+require_once 'Model/News.php';
 
 class MainController
 {
-    private $repository;
+    private $news;
     private $title = 'Галактический вестник';
-    private $count_news = 4;
-    private $items_on_page = 1;
+    private $countNews = 4;
+    private $itemsOnPage = 1;
 
     public function __construct()
     {
-        $this->repository = new Repository();
+        $this->news = new News();
     }
 
     public function index()
     {
         $title = $this->title;
-        $news = $this->repository->fetchNews();
-        $bannerNews = $this->repository->fetchBanner();
+        $news = $this->news->fetchNews();
+        $bannerNews = $this->news->fetchBanner();
 
         $pages = $this->getPages();
 
@@ -29,29 +28,27 @@ class MainController
 
     public function getPages()
     {
-        $count = $this->repository->fetchCountPage();
+        $count = $this->news->fetchCountPages();
         
-        $id_page = $this->repository->getPageId(); // уточнить про this
-
-        //$id_page = (int) $id_page;
+        $pageId = $this->news->getPageId();
         
-        $count_pages = ceil($count / $this->count_news);
+        $countPages = ceil($count / $this->countNews);
         
-        $first_page = max(1, $id_page - $this->items_on_page);
+        $firstPage = max(1, $pageId - $this->itemsOnPage);
 
-        $last_page = min($count_pages, $id_page + $this->items_on_page);
+        $lastPage = min($countPages, $pageId + $this->itemsOnPage);
 
-        if($id_page <= $this->items_on_page){
-            $first_page = 1;
-            $last_page = min($count_pages, 2 * $this->items_on_page + 1);
+        if($pageId <= $this->itemsOnPage){
+            $firstPage = 1;
+            $lastPage = min($countPages, 2 * $this->itemsOnPage + 1);
         }
 
-        if($id_page >= $count_pages - $this->items_on_page){
-            $last_page = $count_pages;
-            $first_page = max(1, $count_pages - 2 * $this->items_on_page);
+        if($pageId >= $countPages - $this->itemsOnPage){
+            $lastPage = $countPages;
+            $firstPage = max(1, $countPages - 2 * $this->itemsOnPage);
         }
 
-        return ['id_page' => $id_page, 'count_pages' => $count_pages, 'first_page' => $first_page, 'last_page' => $last_page];
+        return ['pageId' => $pageId, 'countPages' => $countPages, 'firstPage' => $firstPage, 'lastPage' => $lastPage];
     }
 }
 

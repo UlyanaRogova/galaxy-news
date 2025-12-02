@@ -102,15 +102,16 @@ header{
     column-gap: 30px;
 }
 
-.block-news .news .news-subject{
+.block-news .news a{
     box-sizing: border-box;
     position: relative;
     width: 740px;
     padding-bottom: 45px;
     cursor: pointer;
+    color: #000000;
 }
 
-.block-news .news .news-subject .news-time, .content-news .main-content .news-time{
+.block-news .news a .news-subject .news-time, .content-news .main-content .news-time{
     display: flex;
     border-radius: 60px;
     width: 120px;
@@ -120,29 +121,29 @@ header{
     align-items: center;
 }
 
-.block-news .news .news-subject .news-time{
+.block-news .news a .news-subject .news-time{
     position: absolute;
     top: 0;
 }
 
-.block-news .news .news-subject .news-title{
+.block-news .news a .news-subject .news-title{
     box-sizing: border-box;
     margin: 60px 0 35px 0;
 }
 
-.block-news .news .news-subject .news-title h2{
+.block-news .news a .news-subject .news-title h2{
     font-weight: 600;
     font-size: 32px;
 }
 
-.block-news .news .news-subject .news-announce{
+.block-news .news a .news-subject .news-announce{
     box-sizing: border-box;
     font-size: 20px;
     line-height: 30px;
     margin: 30px 0 80px 0;
 }
 
-.block-news .news .news-subject .button{
+.block-news .news a .news-subject .button{
     position: absolute;
     bottom: 40px;
     display: flex;
@@ -153,14 +154,10 @@ header{
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
+    color: #841644
 }
 
-.block-news .news .news-subject .button a{
-    display: flex;
-    color: #841644;
-}
-
-.block-news .news .news-subject .button a span{
+.block-news .news a .news-subject .button span{
     box-sizing: border-box;
     position: relative;
     top: -5px;
@@ -172,16 +169,17 @@ header{
     font-size: 30px;
 }
 
-.block-news .news .news-subject:hover .news-title h2{
+.block-news .news a:hover .news-subject .news-title h2{
     color: #841644
 }
 
-.block-news .news .news-subject:hover .button, .content-news .back-page:hover{
+.block-news .news a:hover .news-subject .button, .content-news .back-page:hover{
     background-color: #841644;
+    color: #ffffff;
     transition: 0.3s ease;
 }
 
-.block-news .news .news-subject:hover .button a, .block-news .news .news-subject:hover .button span.arrow-link, .content-news .back-page:hover a, .content-news .back-page:hover .left-arr{
+.block-news .news a:hover .news-subject .button a, .block-news .news a:hover .news-subject .button span.arrow-link, .content-news .back-page:hover a, .content-news .back-page:hover .left-arr{
     color: #ffffff;
     transition: 0.3s ease;
 }
