@@ -1,2 +1,3 @@
 # galaxy-news
-[Галактический вестник](]https://dev.summeronsnow.ru/)
+[Галактический вестник](https://dev.summeronsnow.ru/)
+
