@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="resources/styles.css">
-        <?php require 'main/models/main_title.php';?>
-    </head>
-    <body>
-        <header>
-            <?php include 'resources/header.html' ?>
-        </header>
-        <main>
-            <div class="main-news">
-                <?php include 'main/models/main_news.php' ?>
-            </div> 
-            <div class="block-news wrapper">
-                <h1>Новости</h1>
-                <?php include 'main/models/block_news.php' ?>
-            </div>
-        </main>
-        <footer>
-            <?php include 'resources/footer.html' ?>
-        </footer>
-    </body>
-</html>
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'on');
+mb_internal_encoding('UTF-8');
+
+require_once 'Controllers/DetailController.php';
+require_once 'Controllers/MainController.php';
+
+$detail = new DetailController();
+$main = new MainController();
+
+//Simple router
+$requestUri = $_SERVER['REQUEST_URI'];
+
+if (preg_match('/\/detail(.*)/', $requestUri)) {
+    $newsId = $_GET['id'];
+    $detail->index($newsId);
+} /*elseif() {
+  //Other pages
+}*/ elseif (preg_match('/\//', $requestUri)) {
+    $main->index();
+} else {
+    header('HTTP/1.0 404 Not Found');
+    echo 'Страница не найдена';
+}
+?>
